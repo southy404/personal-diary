@@ -8,6 +8,8 @@ All data is persisted locally using the Web Storage API (`localStorage`).
 
 ## 🚀 Live Demo
 
+![Personal Diary Demo](./public/demo.gif)
+
 👉 _Deployment link will be added after publishing on Render_
 
 ---
