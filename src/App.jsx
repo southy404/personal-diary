@@ -3,6 +3,7 @@ import Header from "./components/header/Header";
 import EntryList from "./components/entries/EntryList";
 import AddEntryModal from "./components/modals/AddEntryModal";
 import ViewEntryModal from "./components/modals/ViewEntryModal";
+import CalendarModal from "./components/calendar/CalendarModal";
 
 const App = () => {
   // localStorage
@@ -47,9 +48,14 @@ const App = () => {
     return 0;
   });
 
+  // Calendar Modal
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [calendarMonth, setCalendarMonth] = useState(() => new Date());
+
   const [selectedEntry, setSelectedEntry] = useState(null);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [initialDate, setInitialDate] = useState("");
 
   const handleAddEntry = (newEntry) => {
     const entryExistsForDay = entries.some(
@@ -80,6 +86,7 @@ const App = () => {
     <div className="min-h-screen bg-base-200 p-4">
       <Header
         onAddClick={() => setIsAddModalOpen(true)}
+        onOpenCalendar={() => setIsCalendarOpen(true)}
         sortMode={sortMode}
         onSortChange={setSortMode}
       />
@@ -100,6 +107,7 @@ const App = () => {
           }}
           onAddEntry={entryToEdit ? handleEditEntry : handleAddEntry}
           entryToEdit={entryToEdit}
+          initialDate={initialDate}
         />
       )}
 
@@ -118,6 +126,37 @@ const App = () => {
           }}
         />
       )}
+      <CalendarModal
+        isOpen={isCalendarOpen}
+        onClose={() => setIsCalendarOpen(false)}
+        monthDate={calendarMonth}
+        onPrevMonth={() =>
+          setCalendarMonth(
+            (d) => new Date(d.getFullYear(), d.getMonth() - 1, 1)
+          )
+        }
+        onNextMonth={() =>
+          setCalendarMonth(
+            (d) => new Date(d.getFullYear(), d.getMonth() + 1, 1)
+          )
+        }
+        entries={entries}
+        selectedDate={selectedEntry?.date || null}
+        onSelectDate={(iso) => {
+          const found = entries.find((e) => e.date === iso);
+
+          if (found) {
+            setSelectedEntry(found);
+            setIsViewModalOpen(true);
+            setIsCalendarOpen(false);
+          } else {
+            setInitialDate(iso);
+            setEntryToEdit(null);
+            setIsAddModalOpen(true);
+            setIsCalendarOpen(false);
+          }
+        }}
+      />
     </div>
   );
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import AddEntryButton from "./AddEntryButton";
+import CalendarButton from "../calendar/CalendarButton";
 
-const Header = ({ onAddClick, sortMode, onSortChange }) => {
+const Header = ({ onAddClick, onOpenCalendar, sortMode, onSortChange }) => {
   const [now, setNow] = useState(new Date());
 
   useEffect(() => {
@@ -13,21 +14,31 @@ const Header = ({ onAddClick, sortMode, onSortChange }) => {
   }, []);
 
   return (
-    <header className="mb-6 flex items-center justify-between">
-      <div>
-        <h1 className="text-2xl font-bold">Personal Diary</h1>
-        <p className="text-sm opacity-70">
-          {now.toLocaleDateString("de-DE", {
-            weekday: "long",
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}{" "}
-          · {now.toLocaleTimeString("de-DE")}
-        </p>
+    <header className="mb-6 space-y-3">
+      <div className="flex items-start justify-between">
+        <div>
+          <h1 className="text-lg sm:text-xl md:text-2xl font-bold">
+            Personal Diary
+          </h1>
+          <p className="text-xs sm:text-sm opacity-70 leading-tight">
+            {now.toLocaleDateString("de-DE", {
+              weekday: "long",
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}{" "}
+            · {now.toLocaleTimeString("de-DE")}
+          </p>
+        </div>
+
+        {/* Add Button */}
+        <AddEntryButton onClick={onAddClick} />
       </div>
-      {/* Sort-Dropdown */}
-      <div className="flex items-center gap-3">
+
+      {/* Calendar + Sort */}
+      <div className="flex items-center gap-2 sm:justify-start">
+        <CalendarButton onClick={onOpenCalendar} />
+
         <select
           className="select select-bordered select-sm"
           value={sortMode}
@@ -37,8 +48,6 @@ const Header = ({ onAddClick, sortMode, onSortChange }) => {
           <option value="date-asc">Oldest first</option>
           <option value="title-asc">Title A–Z</option>
         </select>
-
-        <AddEntryButton onClick={onAddClick} />
       </div>
     </header>
   );
