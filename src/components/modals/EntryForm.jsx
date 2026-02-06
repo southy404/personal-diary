@@ -1,8 +1,11 @@
 import { useState } from "react";
 
+const todayIso = new Date().toISOString().slice(0, 10);
 const EntryForm = ({ onSubmit, entryToEdit, initialDate }) => {
   const [title, setTitle] = useState(entryToEdit?.title || "");
-  const [date, setDate] = useState(entryToEdit?.date || initialDate || "");
+  const [date, setDate] = useState(
+    entryToEdit?.date || initialDate || todayIso
+  );
   const [imageUrl, setImageUrl] = useState(entryToEdit?.imageUrl || "");
   const [content, setContent] = useState(entryToEdit?.content || "");
 
