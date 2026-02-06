@@ -10,7 +10,8 @@ All data is persisted locally using the Web Storage API (`localStorage`).
 
 ![Personal Diary Demo](./public/demo.gif)
 
-👉 _Deployment link will be added after publishing on Render_
+👉 **Live Demo:**  
+🔗 https://personal-diary-5dys.onrender.com/
 
 ---
 
