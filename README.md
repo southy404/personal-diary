@@ -37,6 +37,16 @@ All data is persisted locally using the Web Storage API (`localStorage`).
 - 🚫 Prevents multiple entries for the same date
 - ✅ Form validation (all fields required)
 
+### Calendar Integration
+
+- 📅 Interactive **monthly calendar modal**
+- 🔘 Days with existing diary entries are **visually marked**
+- 👆 Clicking a marked day opens the corresponding diary entry
+- ➕ Clicking an empty day opens the **add-entry modal** with the selected date
+- 🗓 Calendar grid always shows complete weeks (Monday → Sunday)
+- 🇩🇪 Dates are handled and displayed in **German format**
+- 🕒 Internally uses ISO date strings (`YYYY-MM-DD`) for consistency
+
 ### UX Enhancements
 
 - 🕒 **Live date & time** displayed in the header
@@ -56,22 +66,26 @@ All data is persisted locally using the Web Storage API (`localStorage`).
 ```text
 src/
 ├── components/
+│   ├── calendar/
+│   │   ├── CalendarButton.jsx     # Opens calendar modal
+│   │   ├── CalendarModal.jsx      # Monthly calendar modal
+│   │   └── CalendarGrid.jsx       # Calendar grid & day logic
+│   │
 │   ├── entries/
-│   │   ├── EntryList.jsx        # Renders sorted diary entries
-│   │   └── EntryCard.jsx        # Entry preview card
+│   │   ├── EntryList.jsx          # Renders sorted diary entries
+│   │   └── EntryCard.jsx          # Entry preview card
 │   │
 │   ├── header/
-│   │   ├── Header.jsx           # App title, live date & time, sorting, add button
-│   │   └── AddEntryButton.jsx   # Opens add/edit entry modal
+│   │   ├── Header.jsx             # App title, live date & time, sorting
+│   │   └── AddEntryButton.jsx     # Opens add/edit entry modal
 │   │
 │   └── modals/
-│       ├── AddEntryModal.jsx    # Modal wrapper for add/edit
-│       ├── EntryForm.jsx        # Controlled form (add & edit)
-│       ├── ViewEntryModal.jsx   # Entry detail modal
-│       └── EntryDetails.jsx     # Full diary entry display
+│       ├── AddEntryModal.jsx      # Modal wrapper for add/edit
+│       ├── EntryForm.jsx          # Controlled form (add & edit)
+│       ├── ViewEntryModal.jsx     # Entry detail modal
+│       └── EntryDetails.jsx       # Full diary entry display
 │
-├── App.jsx                      # Global state & business logic
-├── main.jsx                     # App entry point
-├── index.css                    # TailwindCSS & DaisyUI setup
-
+├── App.jsx                        # Global state & business logic
+├── main.jsx                       # App entry point
+├── index.css                      # TailwindCSS & DaisyUI setup
 ```
